@@ -1,0 +1,11 @@
+
+.layout-block {
+  height: 100vh;
+  outline: 1px solid red;
+}
+
+.main-container {
+  width: 100vw;
+  height: 100vh;
+  padding: 0 !important;
+}
