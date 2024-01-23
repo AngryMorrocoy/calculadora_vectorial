@@ -32,4 +32,8 @@ export default class Vector {
       this.z - vectorB.z
     );
   }
+
+  toString() {
+    return `(${this.x};${this.y};${this.z})`;
+  }
 }
