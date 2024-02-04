@@ -9,9 +9,12 @@ import {
 } from "../context/VectorStorageContext";
 import Vector from "../objects/Vector";
 import VectorCard from "./VectorCard";
+import VectorManagerForm from "./VectorManagerForm";
+import { useState } from "react";
 
 const VectorsSideBar = ({ }) => {
   const { state: vectors, dispatch } = useContext(VectorStorageContext);
+  const [modalVisibility, setModalVisibility] = useState(false)
 
   return (
     <Container className="p-0">
@@ -33,23 +36,14 @@ const VectorsSideBar = ({ }) => {
             className="rounded-0"
             variant="success"
             onClick={() => {
-              const v_name = prompt("Enter vector name");
-              const new_v = new Vector(
-                Number(prompt("Enter x coord")),
-                Number(prompt("Enter y coord")),
-                Number(prompt("Enter z coord"))
-              );
-
-              dispatch({
-                type: vectorStorageActions.CREATE_VECTOR,
-                payload: { name: v_name, vector: new_v },
-              });
+              setModalVisibility(true)
             }}
           >
             +
           </Button>
         </ButtonGroup>
       </Row>
+      <VectorManagerForm mode="CREATE" isVisible={modalVisibility} onHide={() => setModalVisibility(false)}/>
     </Container>
   );
 };
