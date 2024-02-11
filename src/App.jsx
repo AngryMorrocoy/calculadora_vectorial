@@ -8,12 +8,11 @@ import {
   vectorStorageReducer,
 } from "./context/VectorStorageContext";
 import { useReducer } from "react";
-import Vector from "./objects/Vector";
 
 function App() {
   const [savedVectors, savedVectorsDispatch] = useReducer(
     vectorStorageReducer,
-    { a: new Vector(2, 3, 5) }
+    {}
   );
 
   return (
