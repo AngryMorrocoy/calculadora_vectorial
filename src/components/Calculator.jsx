@@ -5,39 +5,51 @@ import { useState } from "react";
 import {
   CLEAR_INSERTION,
   DELETE_LAST_INSERTION,
+  NUMERIC_INSERTION,
   OPERATION_INSERTION,
+  VECTORIAL_INSERTION,
 } from "./constraints";
-import { add } from "mathjs";
+import { useContext } from "react";
+import { VectorStorageContext } from "../context/VectorStorageContext";
+import { create, all } from "mathjs";
+import { vectorOperationsFactoriesBuilder, vectorTypeFactory } from "../objects/mathExtensions";
+import Vector from "../objects/Vector";
 
-// import Vector from "../objects/Vector";
+const math = create(all)
+math.import([vectorTypeFactory, ...vectorOperationsFactoriesBuilder()])
 
 const Calculator = ({ }) => {
+  const [operand, setOperand] = useState(undefined);
   const [expression, setExpression] = useState("");
-  const [currentOperation, setCurrentOperation] = useState(undefined);
 
+  const { state: vectors } = useContext(VectorStorageContext);
 
   const inputInsertionHandler = (value, insertionType) => {
-    console.log(insertionType);
+    let newExpression;
+    // console.log(insertionType);
     switch (insertionType) {
+      case VECTORIAL_INSERTION:
+        setOperand(vectors[value]);
+        setExpression(vectors[value].toString());
+        break;
+      case NUMERIC_INSERTION:
+        if (!/^\d*$/.test(expression)) break;
+
+        newExpression = `${expression}${value}`;
+        setExpression(newExpression);
+        setOperand(Number(newExpression));
+        break;
       case CLEAR_INSERTION:
+        setOperand(undefined);
         setExpression("");
         break;
       case DELETE_LAST_INSERTION:
-        setExpression(expression.slice(0, expression.length - 1));
+        newExpression = expression.replace(/(.|(\(.*\)))$/, "");
+        setExpression(expression.replace(/(.|(\(.*\)))$/, ""));
+        setOperand(undefined);
         break;
       case OPERATION_INSERTION:
-        if (value === "=") {
-          console.log(currentOperation(Number(expression)));
-          break;
-        }
-        setCurrentOperation(() => (x) => {
-          console.log(`calculating ${expression}+${x}`);
-          return add(Number(expression), x);
-        });
-        setExpression("");
         break;
-      default:
-        setExpression(`${expression}${value}`);
     }
   };
 

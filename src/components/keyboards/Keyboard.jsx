@@ -4,11 +4,15 @@ import OperationalKeyboard from "./OperationalKeyboard";
 
 const Keyboard = ({ clickHandler }) => {
   const buttonClickHandler = (evt) => {
-    if (evt.target?.type !== "button") return;
-    const target = evt.target
-    const insertionValue = target.textContent
-    const insertionType = target.attributes.insertiontype.value
-    clickHandler(insertionValue, insertionType)
+    if (evt.target?.type !== "button" || !evt.target.attributes.insertiontype)
+      return;
+
+    const target = evt.target;
+    const insertionValue = target.textContent;
+
+    const insertionType = target.attributes.insertiontype.value;
+
+    clickHandler(insertionValue, insertionType);
   };
 
   return (
