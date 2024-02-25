@@ -29,8 +29,14 @@ const VectorManagerForm = ({ mode, isVisible, onHide }) => {
     let value = evt.target.value;
     value = value === "" ? "0" : value;
 
-    if (/^\d+(\.?\d*)$/.test(value)) {
-      value = value.replace(/^0+(\d+)/, "$1");
+    if (evt.nativeEvent.data === "-") {
+      value = value.replace(/^-*/, "-");
+      value = value.replace(/-*$/, "");
+    }
+
+    if (/^-?\d+(\.?\d*)$/.test(value)) {
+      value = value.replace(/^(-)?0+(\d+)/, "$1$2");
+      value = value.replace(/^-$/, "-0")
       setComponents({ ...components, [component]: value });
     }
   };
