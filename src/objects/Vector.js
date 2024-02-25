@@ -3,6 +3,8 @@ export default class Vector {
     this.x = x;
     this.y = y;
     this.z = z ? z : 0;
+
+    this.isVector = true;
   }
 
   dotProduct(vectorB) {
