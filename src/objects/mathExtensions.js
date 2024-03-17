@@ -30,7 +30,7 @@ const vectorOperationsFactoriesBuilder = () => {
     [
       "subtract",
       ({ typed }) =>
-        typed("sub", {
+        typed("subtract", {
           "Vector, Vector": (a, b) => {
             return a.sub(b);
           },

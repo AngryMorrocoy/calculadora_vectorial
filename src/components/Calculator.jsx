@@ -43,7 +43,7 @@ const Calculator = ({ }) => {
         setVisualExpression(vectors[value].toString());
         break;
       case NUMERIC_INSERTION:
-        if (!/^\d*$/.test(visualExpression)) break;
+        if (!/^\d*(\.\d*)?$/.test(visualExpression)) break;
 
         newExpression = `${visualExpression}${value}`;
         setVisualExpression(newExpression);
@@ -56,7 +56,7 @@ const Calculator = ({ }) => {
       case DELETE_LAST_INSERTION:
         newExpression = visualExpression.replace(/(.|(\(.*\)))$/, "");
         setVisualExpression(visualExpression.replace(/(.|(\(.*\)))$/, ""));
-        setCurrentOperand(undefined);
+        setCurrentOperand(Number(newExpression));
         break;
       case OPERATION_INSERTION:
         if (value === "=") {
