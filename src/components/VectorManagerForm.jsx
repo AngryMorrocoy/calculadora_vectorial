@@ -13,7 +13,27 @@ import { useContext } from "react";
 import Vector from "../objects/Vector";
 
 const VectorManagerForm = ({ mode, isVisible, onHide }) => {
+  const [isMissingName, setIsMissingName] = useState(false);
   mode = mode ?? "CREATE";
+
+  const createVector = () => {
+    if (!vectorName.replaceAll(" ")) {
+      setIsMissingName(true);
+      return false;
+    }
+    dispatch({
+      type: vectorStorageActions.CREATE_VECTOR,
+      payload: {
+        name: vectorName,
+        vector: new Vector(
+          Number(components.x),
+          Number(components.y),
+          Number(components.z)
+        ),
+      },
+    });
+    return true;
+  };
 
   const { dispatch } = useContext(VectorStorageContext);
   const [components, setComponents] = useState({ x: 0, y: 0, z: 0 });
@@ -36,13 +56,22 @@ const VectorManagerForm = ({ mode, isVisible, onHide }) => {
 
     if (/^-?\d+(\.?\d*)$/.test(value)) {
       value = value.replace(/^(-)?0+(\d+)/, "$1$2");
-      value = value.replace(/^-$/, "-0")
+      value = value.replace(/^-$/, "-0");
       setComponents({ ...components, [component]: value });
     }
   };
 
   return (
     <Modal show={isVisible} onHide={handleClose}>
+      <Modal show={isMissingName} onHide={() => setIsMissingName(false)}>
+        <Modal.Header>Error</Modal.Header>
+        <Modal.Body>No se puede crear un vector sin nombre.</Modal.Body>
+        <Modal.Footer>
+          <Button variant="success" onClick={() => setIsMissingName(false)}>
+            Ok
+          </Button>
+        </Modal.Footer>
+      </Modal>
       <Modal.Header closeButton>
         <Modal.Title>Crear un vector</Modal.Title>
       </Modal.Header>
@@ -85,18 +114,7 @@ const VectorManagerForm = ({ mode, isVisible, onHide }) => {
         <Button
           variant="success"
           onClick={() => {
-            dispatch({
-              type: vectorStorageActions.CREATE_VECTOR,
-              payload: {
-                name: vectorName,
-                vector: new Vector(
-                  Number(components.x),
-                  Number(components.y),
-                  Number(components.z)
-                ),
-              },
-            });
-            handleClose();
+            createVector() && handleClose();
           }}
         >
           {mode === "CREATE" ? "Crear" : "Editar"}
