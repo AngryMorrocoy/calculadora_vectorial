@@ -11,7 +11,7 @@ const OperationalKeyboard = ({ }) => {
   const { state: vectors } = useContext(VectorStorageContext);
 
   return (
-    <ButtonGroup vertical className="me-2 w-25">
+    <ButtonGroup vertical className="w-25">
       <ButtonGroup>
         <DropdownButton title="Vectores">
           {Object.entries(vectors).map(([vectorName, _], idx) => {
@@ -37,8 +37,8 @@ const OperationalKeyboard = ({ }) => {
         <Button variant="secondary">a²</Button>
       </ButtonGroup>
       <ButtonGroup>
-        <Button variant="secondary">•</Button>
-        <Button variant="secondary">X</Button>
+        <Button variant="secondary" insertiontype={OPERATION_INSERTION}>•</Button>
+        <Button variant="secondary" insertiontype={OPERATION_INSERTION}>X</Button>
       </ButtonGroup>
       <ButtonGroup>
         <Button variant="secondary" insertiontype={OPERATION_INSERTION}>

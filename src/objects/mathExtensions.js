@@ -28,7 +28,7 @@ const vectorOperationsFactoriesBuilder = () => {
         }),
     ],
     [
-      "sub",
+      "subtract",
       ({ typed }) =>
         typed("sub", {
           "Vector, Vector": (a, b) => {
@@ -40,11 +40,11 @@ const vectorOperationsFactoriesBuilder = () => {
       "multiply",
       ({ typed, Vector }) =>
         typed("multiply", {
-          "Vector, Number": (a, b) => {
+          "Vector, number": (a, b) => {
             return new Vector(a.x * b, a.y * b, a.z * b);
           },
-          "Number, Vector": (a, b) => {
-            return new Vector(a.x * b, a.y * b, a.z * b);
+          "number, Vector": (a, b) => {
+            return new Vector(b.x * a, b.y * a, b.z * a);
           },
         }),
     ],

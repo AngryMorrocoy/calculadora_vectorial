@@ -12,50 +12,77 @@ import {
 import { useContext } from "react";
 import { VectorStorageContext } from "../context/VectorStorageContext";
 import { create, all } from "mathjs";
-import { vectorOperationsFactoriesBuilder, vectorTypeFactory } from "../objects/mathExtensions";
-import Vector from "../objects/Vector";
+import {
+  vectorOperationsFactoriesBuilder,
+  vectorTypeFactory,
+} from "../objects/mathExtensions";
+import useFunction from "../customHooks/useFunction";
 
-const math = create(all)
-math.import([vectorTypeFactory, ...vectorOperationsFactoriesBuilder()])
+const math = create(all);
+math.import([vectorTypeFactory, ...vectorOperationsFactoriesBuilder()]);
+
+const functionsDict = {
+  "+": math.add,
+  "-": math.subtract,
+  "•": math.dotProduct,
+  "X": math.crossProduct,
+};
 
 const Calculator = ({ }) => {
-  const [operand, setOperand] = useState(undefined);
-  const [expression, setExpression] = useState("");
+  const [currentOperand, setCurrentOperand] = useState(undefined);
+  const [currentOperation, setCurrentOperation] = useFunction(undefined);
+  const [visualExpression, setVisualExpression] = useState("");
 
   const { state: vectors } = useContext(VectorStorageContext);
 
   const inputInsertionHandler = (value, insertionType) => {
     let newExpression;
-    // console.log(insertionType);
     switch (insertionType) {
       case VECTORIAL_INSERTION:
-        setOperand(vectors[value]);
-        setExpression(vectors[value].toString());
+        setCurrentOperand(vectors[value]);
+        setVisualExpression(vectors[value].toString());
         break;
       case NUMERIC_INSERTION:
-        if (!/^\d*$/.test(expression)) break;
+        if (!/^\d*$/.test(visualExpression)) break;
 
-        newExpression = `${expression}${value}`;
-        setExpression(newExpression);
-        setOperand(Number(newExpression));
+        newExpression = `${visualExpression}${value}`;
+        setVisualExpression(newExpression);
+        setCurrentOperand(Number(newExpression));
         break;
       case CLEAR_INSERTION:
-        setOperand(undefined);
-        setExpression("");
+        setCurrentOperand(undefined);
+        setVisualExpression("");
         break;
       case DELETE_LAST_INSERTION:
-        newExpression = expression.replace(/(.|(\(.*\)))$/, "");
-        setExpression(expression.replace(/(.|(\(.*\)))$/, ""));
-        setOperand(undefined);
+        newExpression = visualExpression.replace(/(.|(\(.*\)))$/, "");
+        setVisualExpression(visualExpression.replace(/(.|(\(.*\)))$/, ""));
+        setCurrentOperand(undefined);
         break;
       case OPERATION_INSERTION:
+        if (value === "=") {
+          const result = currentOperation(currentOperand);
+          inputInsertionHandler(undefined, CLEAR_INSERTION);
+          setVisualExpression(`${result}`);
+          setCurrentOperand(result);
+          break;
+        }
+
+        setCurrentOperation((b) => functionsDict[value](currentOperand, b));
+        const isVectorOnlyOperation = ["dotProduct", "crossProduct"].includes(
+          functionsDict[value].name
+        );
+
+        if (isVectorOnlyOperation && !currentOperand.isVector) {
+          setCurrentOperation((b) => math.multiply(currentOperand, b));
+        }
+        inputInsertionHandler(undefined, CLEAR_INSERTION);
         break;
     }
   };
 
   return (
     <Container className="d-flex flex-column justify-content-center">
-      <FormControl className="mb-3" value={expression} disabled />
+      <FormControl className="mb-3" value={visualExpression} disabled />
       <Keyboard clickHandler={inputInsertionHandler} />
     </Container>
   );
