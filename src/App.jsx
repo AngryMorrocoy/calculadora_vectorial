@@ -8,6 +8,7 @@ import {
   vectorStorageReducer,
 } from "./context/VectorStorageContext";
 import { useReducer } from "react";
+import VectorsGraph from "./components/VectorsGraph";
 
 function App() {
   const [savedVectors, savedVectorsDispatch] = useReducer(
@@ -27,7 +28,9 @@ function App() {
           <Col xs={4} className="d-flex">
             <Calculator />
           </Col>
-          <Col className="layout-block">3</Col>
+          <Col className="layout-block">
+            <VectorsGraph />
+          </Col>
         </Row>
       </Container>
     </VectorStorageContext.Provider>
