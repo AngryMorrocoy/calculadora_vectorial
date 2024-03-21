@@ -2,41 +2,66 @@ import { useState, useEffect, useContext } from "react";
 import { ReactP5Wrapper } from "react-p5-wrapper";
 import { VectorStorageContext } from "../context/VectorStorageContext";
 
-function sketch(p5) {
+function sketch(p) {
+  const axisScale = 0.03;
   let vectors = [];
-  let halfWidth = () => Math.floor(p5.width / 2);
-  let halfHeight = () => Math.floor(p5.height / 2);
+  let m;
 
-  p5.setup = () => {
-    p5.createCanvas(500, 500);
-    p5.noFill();
+  function drawX() {
+    p.noStroke();
+    // x axis
+    p.push();
+    p.translate(-1000, 0, 0);
+
+    p.scale(1000, axisScale, axisScale);
+    p.fill(255, 0, 0);
+    p.box();
+    p.pop();
+    // y axis
+
+    p.push();
+    p.fill(0, 0, 255);
+    p.translate(0, -1000, 0);
+    p.scale(axisScale, 1000, axisScale);
+    p.box();
+    p.pop();
+
+    // z axis
+
+    p.push();
+    p.fill(0, 255, 0);
+    p.translate(0, 0, -1000);
+    p.scale(axisScale, axisScale, 1000);
+    p.box();
+    p.pop();
+  }
+
+  function drawVector(x, y, z) {
+    p.fill(0, 0, 0);
+    p.stroke(0);
+    p.strokeWeight(1);
+    p.beginShape();
+    p.vertex(0, 0, 0);
+    p.vertex(x, y, z);
+    p.endShape();
+  }
+
+  p.setup = () => {
+    p.createCanvas(500, 500, p.WEBGL);
   };
 
-  p5.updateWithProps = (p) => {
-    p5.resizeCanvas(...p.size);
+  p.updateWithProps = (p) => {
     if (p.vectors) vectors = p.vectors;
+    // p.resizeCanvas(...p.size);
   };
 
-  p5.draw = () => {
-    p5.strokeWeight(1);
-    p5.background(120);
+  p.draw = () => {
+    p.background(100);
+    p.orbitControl(0.5, 0.5,1);
+    drawX();
 
-    p5.stroke(0, 0, 255);
-    p5.line(halfWidth(), 0, halfWidth(), p5.height);
-
-    p5.stroke(255, 0, 0);
-    p5.line(0, halfHeight(), p5.width, halfHeight());
-
-    p5.translate(halfWidth(), halfHeight());
-
-    for (let [name, v] of Object.entries(vectors)) {
-      p5.strokeWeight(3)
-      p5.stroke(v.x, v.y, (v.x * v.y) % 255)
-      p5.line(0, 0, v.x, v.y);
-
-      p5.stroke(0)
-      p5.strokeWeight(0.5)
-      p5.text(name, v.x, v.y)
+    for (let [_, v] of Object.entries(vectors)) {
+      drawVector(v.x, v.y,v.z);
     }
   };
 }
