@@ -1,10 +1,26 @@
-
 .layout-block {
   height: 100vh;
   outline: 1px dashed gray;
 }
 
 .main-container {
+  background: rgb(204, 204, 236);
+  background: -moz-linear-gradient(
+    293deg,
+    rgba(204, 204, 236, 1) 24%,
+    rgba(0, 80, 255, 0.5088235123150823) 100%
+  );
+  background: -webkit-linear-gradient(
+    293deg,
+    rgba(204, 204, 236, 1) 24%,
+    rgba(0, 80, 255, 0.5088235123150823) 100%
+  );
+  background: linear-gradient(
+    293deg,
+    rgba(204, 204, 236, 1) 24%,
+    rgba(0, 80, 255, 0.5088235123150823) 100%
+  );
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ccccec",endColorstr="#0050ff",GradientType=1);
   width: 100vw;
   height: 100vh;
   padding: 0 !important;
