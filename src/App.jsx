@@ -9,12 +9,11 @@ import {
 } from "./context/VectorStorageContext";
 import { useReducer } from "react";
 import VectorsGraph from "./components/VectorsGraph/VectorsGraph";
-import Vector from "./objects/Vector";
 
 function App() {
   const [savedVectors, savedVectorsDispatch] = useReducer(
     vectorStorageReducer,
-    { a: new Vector(2, 3, 4) }
+    {}
   );
 
   return (
@@ -23,7 +22,7 @@ function App() {
     >
       <Container fluid className="main-container">
         <Row>
-          <Col className="layout-block" xs={2}>
+          <Col className="layout-block overflow-scroll pb-5 pt-3" xs={2}>
             <VectorsSideBar />
           </Col>
           <Col xs={4} className="d-flex">

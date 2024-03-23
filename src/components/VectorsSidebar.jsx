@@ -18,9 +18,7 @@ const VectorsSideBar = ({ }) => {
 
   return (
     <Container className="m-0 p-0 ps-2">
-      <Row>
-        <h3 className="text-center p-0">Vectores</h3>
-      </Row>
+      <h3 className="text-center p-0 border-bottom border-2 border-secondary">Vectores</h3>
 
       <Container className="d-flex flex-column align-items-center p-0">
         {Object.entries(vectors).map(([vectorName, vectorInstance], idx) => {
@@ -43,7 +41,7 @@ const VectorsSideBar = ({ }) => {
           </Button>
         </ButtonGroup>
       </Row>
-      <VectorManagerForm mode="CREATE" isVisible={modalVisibility} onHide={() => setModalVisibility(false)}/>
+      <VectorManagerForm mode="CREATE" isVisible={modalVisibility} onHide={() => setModalVisibility(false)} />
     </Container>
   );
 };

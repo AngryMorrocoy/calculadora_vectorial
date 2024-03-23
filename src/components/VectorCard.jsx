@@ -24,7 +24,14 @@ const VectorCard = ({ name, vector }) => {
 
   return (
     <>
-      <YesNoModal show={displayModal} onHide={() => setDisplayModal(false)} title={`¿Seguro que deseas eliminar el vector "${name}"?`} onYes={dispatchDeleteVector} onNo={(() => setDisplayModal(false))} />
+      <YesNoModal show={displayModal}
+        onHide={() => setDisplayModal(false)}
+        title={`¿Seguro que deseas eliminar el vector "${name}"?`}
+        onYes={() => {
+          dispatchDeleteVector()
+          setDisplayModal(false)
+        }}
+        onNo={(() => setDisplayModal(false))} />
       <Card className="w-100 mb-3">
         <Card.Body>
           <Card.Title className="text-center fw-bold w-100 m-0 p-0">
