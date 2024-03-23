@@ -1,6 +1,8 @@
-import Row from "react-bootstrap/Row";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import Button from "react-bootstrap/Button";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Card from "react-bootstrap/Card";
 import { useContext, useState } from "react";
 import {
   VectorStorageContext,
@@ -20,28 +22,27 @@ const VectorCard = ({ name, vector }) => {
   };
 
   return (
-    <Row className="mb-3 py-3 px-1 w-100 border border-secondary d-flex justify-content-between">
-      <span className="text-center w-100 mb-2">
-        {name + " = "}
-        {vector.toString()}
-      </span>
-      <ButtonGroup>
-        <Button variant="success">e</Button>
-        <Button variant="danger" onClick={() => setDisplayModal(true)}>
-          d
-        </Button>
-      </ButtonGroup>
-      {displayModal && (
-        <YesNoModal
-          show={true}
-          onHide={() => setDisplayModal(false)}
-          title={`¿Seguro que deseas eliminar el vector "${name}"?`}
-          onYes={dispatchDeleteVector}
-          onNo={() => setDisplayModal(false)}
-        />
-      )}
-    </Row>
-  );
+    <Card className="w-100 mb-3">
+      <Card.Body>
+        <Card.Title className="text-center fw-bold">{name}</Card.Title>
+
+        <Row className="pt-3">
+          <Col className="text-center w-100 fw-bold">X</Col>
+          <Col className="text-center w-100 fw-bold">Y</Col>
+          <Col className="text-center w-100 fw-bold">Z</Col>
+        </Row>
+        <Row className="">
+          <Col className="text-center w-100 border border-secondary">{vector.x}</Col>
+          <Col className="text-center w-100 border border-secondary">{vector.y}</Col>
+          <Col className="text-center w-100 border border-secondary">{vector.z}</Col>
+        </Row>
+
+        <Card.Text className="border-top border-2 border-secondary w-100 mt-4 pt-2">
+          Norma: <span className="fw-bold">{vector.size}</span>
+        </Card.Text>
+      </Card.Body>
+    </Card>
+  )
 };
 
 export default VectorCard;

@@ -7,6 +7,15 @@ export default class Vector {
     this.isVector = true;
   }
 
+  get size() {
+    const size = Math.sqrt(
+      Math.pow(this.x, 2),
+      Math.pow(this.y, 2),
+      Math.pow(this.z, 2),
+    )
+    return size.toFixed(2)
+  }
+
   dotProduct(vectorB) {
     return vectorB.x * this.x + vectorB.y * this.y + vectorB.z * this.z;
   }

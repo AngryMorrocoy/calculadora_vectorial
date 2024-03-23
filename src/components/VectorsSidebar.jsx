@@ -17,12 +17,12 @@ const VectorsSideBar = ({ }) => {
   const [modalVisibility, setModalVisibility] = useState(false)
 
   return (
-    <Container className="p-0">
+    <Container className="m-0 p-0 ps-2">
       <Row>
         <h3 className="text-center p-0">Vectores</h3>
       </Row>
 
-      <Container className="d-flex flex-column align-items-center p-4">
+      <Container className="d-flex flex-column align-items-center p-0">
         {Object.entries(vectors).map(([vectorName, vectorInstance], idx) => {
           return (
             <VectorCard key={idx} name={vectorName} vector={vectorInstance} />
@@ -33,7 +33,7 @@ const VectorsSideBar = ({ }) => {
       <Row>
         <ButtonGroup>
           <Button
-            className="rounded-0"
+            className="rounded-3"
             variant="success"
             onClick={() => {
               setModalVisibility(true)
