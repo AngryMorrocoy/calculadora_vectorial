@@ -8,7 +8,7 @@ import {
   vectorStorageReducer,
 } from "./context/VectorStorageContext";
 import { useReducer } from "react";
-import VectorsGraph from "./components/VectorsGraph";
+import VectorsGraph from "./components/VectorsGraph/VectorsGraph";
 
 function App() {
   const [savedVectors, savedVectorsDispatch] = useReducer(
