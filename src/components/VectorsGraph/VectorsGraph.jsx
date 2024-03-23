@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import { ReactP5Wrapper } from "react-p5-wrapper";
 import { VectorStorageContext } from "../../context/VectorStorageContext";
 import sketch3D from './3DSketch';
-import Button from 'react-bootstrap/Button';
+import sketch2D from './2DSketch';
 
 const VectorsGraph = ({ }) => {
   const { state: vectors } = useContext(VectorStorageContext);
@@ -21,7 +21,7 @@ const VectorsGraph = ({ }) => {
   return (
     <div id="div1" className="w-100 h-100">
       <ReactP5Wrapper
-        sketch={sketch3D}
+        sketch={sketch2D}
         size={[width, height]}
         vectors={vectors}
       />
