@@ -9,9 +9,9 @@ export default class Vector {
 
   get size() {
     const size = Math.sqrt(
-      Math.pow(this.x, 2),
-      Math.pow(this.y, 2),
-      Math.pow(this.z, 2),
+      Math.pow(this.x, 2) +
+      Math.pow(this.y, 2) +
+      Math.pow(this.z, 2)
     )
     return size.toFixed(2)
   }
