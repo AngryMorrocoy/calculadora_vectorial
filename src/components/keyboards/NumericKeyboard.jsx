@@ -40,6 +40,7 @@ const NumericKeyboard = ({ }) => {
           <Button
             key={v}
             variant="secondary"
+            className={v === 0 ? "rounded-bottom-0" : ""}
             insertiontype={
               [0, "."].includes(v) ? NUMERIC_INSERTION : OPERATION_INSERTION
             }

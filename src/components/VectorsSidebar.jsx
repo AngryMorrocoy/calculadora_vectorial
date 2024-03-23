@@ -18,7 +18,7 @@ const VectorsSideBar = ({ }) => {
 
   return (
     <Container className="m-0 p-0 ps-2">
-      <h3 className="text-center p-0 border-bottom border-2 border-secondary">Vectores</h3>
+      <h3 className="text-center p-0 pb-3 border-bottom border-2 border-secondary">Vectores</h3>
 
       <Container className="d-flex flex-column align-items-center p-0">
         {Object.entries(vectors).map(([vectorName, vectorInstance], idx) => {

@@ -29,22 +29,22 @@ const OperationalKeyboard = ({ }) => {
         </DropdownButton>
       </ButtonGroup>
       <ButtonGroup>
-        <Button variant="secondary" disabled>sen</Button>
-        <Button variant="secondary" disabled>cos</Button>
+        <Button variant="secondary w-50" disabled>sen</Button>
+        <Button variant="secondary w-50" disabled>cos</Button>
       </ButtonGroup>
       <ButtonGroup>
-        <Button variant="secondary" disabled>sq</Button>
-        <Button variant="secondary" disabled>a²</Button>
+        <Button variant="secondary w-50" disabled>√</Button>
+        <Button variant="secondary w-50" disabled>a²</Button>
       </ButtonGroup>
       <ButtonGroup>
-        <Button variant="secondary" insertiontype={OPERATION_INSERTION}>•</Button>
-        <Button variant="secondary" insertiontype={OPERATION_INSERTION}>X</Button>
+        <Button variant="secondary w-50" insertiontype={OPERATION_INSERTION}>•</Button>
+        <Button variant="secondary w-50" insertiontype={OPERATION_INSERTION}>X</Button>
       </ButtonGroup>
       <ButtonGroup>
-        <Button variant="secondary" insertiontype={OPERATION_INSERTION}>
+        <Button variant="secondary w-50" insertiontype={OPERATION_INSERTION}>
           +
         </Button>
-        <Button variant="secondary" insertiontype={OPERATION_INSERTION}>
+        <Button variant="secondary w-50 rounded-0" insertiontype={OPERATION_INSERTION}>
           -
         </Button>
       </ButtonGroup>
