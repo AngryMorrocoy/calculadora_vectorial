@@ -19,12 +19,15 @@ export default function sketch(p) {
     p.line(p.width / 2, -axisSize, p.width / 2, axisSize);
   }
 
-  function drawVector(x, y) {
+  function drawVector(name, x, y) {
     const midW = p.width / 2
     const midH = p.height / 2
     p.stroke(0);
-    p.strokeWeight(2);
+    p.strokeWeight(1.25);
     p.line(midW, midH, midW + x, midH - y);
+    p.noStroke();
+    p.fill(255)
+    p.text(name, midW + x, midH - y)
   }
 
   p.setup = () => {
@@ -43,8 +46,8 @@ export default function sketch(p) {
     p.scale(camView.zoom);
 
     drawAxis();
-    for (let [_, v] of Object.entries(vectors)) {
-      drawVector(v.x, v.y);
+    for (let [name, v] of Object.entries(vectors)) {
+      drawVector(name, v.x, v.y);
     }
   };
 
