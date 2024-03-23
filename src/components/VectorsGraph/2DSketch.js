@@ -20,9 +20,11 @@ export default function sketch(p) {
   }
 
   function drawVector(x, y) {
+    const midW = p.width / 2
+    const midH = p.height / 2
     p.stroke(0);
     p.strokeWeight(2);
-    p.line(p.width / 2, p.height / 2, x, y);
+    p.line(midW, midH, midW + x, midH - y);
   }
 
   p.setup = () => {

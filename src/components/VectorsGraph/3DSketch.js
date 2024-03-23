@@ -39,7 +39,7 @@ export default function sketch(p) {
 
   p.setup = () => {
     p.createCanvas(500, 500, p.WEBGL);
-    p.camera(1200,-1200,-1200)
+    p.camera(1200, -1200, 1200)
   };
 
   p.updateWithProps = (props) => {
